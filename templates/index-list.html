@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ business_name }} WiFi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"/>
+    <img src="../static/images/favicomatic/favicon-32x32.png" height="32" width="32"/>
+    <img src="../static/images/favicomatic/favicon-16x16.png" height="16" width="16"/>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+<div class="page">
+    <div class="head">
+        <br>
+        <figure id="logo">
+            <img src="../static/images/logo.png" height="150" width="150"/>
+        </figure>
+    </div>
+    <div class="main">
+        <section class="section">
+            <div class="container">
+                <div id="package_list" class="content has-text-centered has-text-weight-bold"
+                     style="font-size: 30px; text-align: center;">Available Packages
+                </div>
+                {% for package in packages %}
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title" style="text-align: center;">{{ package.name }}</span>
+                            <p style="text-align: center;">Validity: {{ package.uptime }}</p>
+                            <form method="post" action="/subscribe">
+                                <div class="input-field">
+                                    <input id="phone" type="tel" name="phone" class="validate" required>
+                                    <label for="phone" style="text-align: center; display: block;">Enter your phone
+                                        number</label></div>
+                                <button class="btn waves-effect waves-light" type="submit" style="width: 100%;">
+                                    Subscribe
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script type="text/javascript">
+    const passwordField = document.getElementById("password");
+    const togglePassword = document.querySelector(".password-toggle-icon i");
+
+    togglePassword.addEventListener("click", function () {
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            togglePassword.classList.remove("fa-eye");
+            togglePassword.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            togglePassword.classList.remove("fa-eye-slash");
+            togglePassword.classList.add("fa-eye");
+        }
+    });
+</script>
+</body>
+</html>
