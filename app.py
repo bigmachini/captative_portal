@@ -32,7 +32,7 @@ def index():
         #
         # return redirect(url_for('connect'))
 
-        api_url = f"{BASE_API_URL}/user/packages/{PARTNER_ID}"
+        api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
         response = requests.get(api_url)
         packages = response.json()
 
@@ -40,6 +40,27 @@ def index():
                                session=session)
     return render_template('index.html', business_name=os.getenv('BUSINESS_NAME'))
 
+
+@app.route('/subscribe', methods=['POST'])
+def subscribe():
+    phone = request.form['phone']
+    package_id = request.form['package_id']
+    mac_address = session.get('mac')
+
+    api_url = f"{BASE_API_URL}/api/user/signup"
+    data = {
+        'phone_number': phone,
+        'package_id': package_id,
+        'mac_address': mac_address,
+        'partner_id': PARTNER_ID,
+    }
+    headers = {'Content-Type': 'application/json'}
+    response = requests.post(api_url, json=data, headers=headers)
+
+    if response.status_code == 200:
+        return redirect(url_for('success'))
+    else:
+        return redirect(url_for('failure'))
 
 
 @app.route('/connect', methods=['POST'])
@@ -54,7 +75,7 @@ def connect():
     passw = request.form['pass']
 
     if session.get('user_type') == 'new':
-        api_url = f"{BASE_API_URL}/user/signup"
+        api_url = f"{BASE_API_URL}/api/user/signup"
         data = {
             'username': uname,
             'mac': mac,
