@@ -22,13 +22,15 @@ def index():
         session['error'] = request.form['error']
 
         if session['error']:
-            return render_template('connect.html',
+            api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
+            response = requests.get(api_url)
+            packages = response.json()
+
+            print("Did I get here  **************************")
+            return render_template('index-list.html',
                                    business_name=os.getenv('BUSINESS_NAME'),
-                                   link_login_only=session['link_login_only'],
-                                   linkorig=session['link_login'],
-                                   uname=session['mac'],
-                                   passw=session['mac'],
-                                   error=session['error'])
+                                   packages=packages["data"],
+                                   session=session)
 
         api_url = f"{BASE_API_URL}/api/user/profile/{request.form['mac']}"
         response = requests.get(api_url)
@@ -45,15 +47,6 @@ def index():
                                    passw=session['mac'],
                                    error=session['error'])
 
-        api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
-        response = requests.get(api_url)
-        packages = response.json()
-
-        print("Did I get here  **************************")
-        return render_template('index-list.html',
-                               business_name=os.getenv('BUSINESS_NAME'),
-                               packages=packages["data"],
-                               session=session)
     print("Did I get here ++++++++++++++")
     return render_template('index.html', business_name=os.getenv('BUSINESS_NAME'))
 
