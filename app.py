@@ -22,10 +22,8 @@ def index():
         session['error'] = request.form['error']
 
         if session['error']:
-            api_url = f"{BASE_API_URL}/user/profile/clear/{session['mac']}"
+            api_url = f"{BASE_API_URL}/api/user/profile/clear/{session['mac']}"
             response = requests.get(api_url)
-            print(f"response: {response.json()}")
-
             if response.status_code == 200:
                 print("+++++++++++++ Profile Cleared Successful +++++++++++++++++")
 
