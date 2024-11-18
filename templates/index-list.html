@@ -36,10 +36,14 @@
                                     <input type="hidden" name="mac" value="{{ package.id }}">
                                     <input type="hidden" name="ip" value="{{ package.id }}">
                                     <div class="input-field">
-                                        <input id="phone" type="tel" name="phone" class="validate" required>
-                                        <label for="phone" style="text-align: center; display: block;">Enter your phone number</label>
+                                        <input id="phone_{{ package.id }}" type="tel" name="phone"
+                                               class="validate" required>
+                                        <label for="phone_{{ package.id }}" style="text-align: center; display: block;">Enter
+                                            your phone number</label>
                                     </div>
-                                    <button class="btn waves-effect waves-light" type="submit" style="width: 100%;">Subscribe</button>
+                                    <button class="btn waves-effect waves-light" type="submit" style="width: 100%;">
+                                        Subscribe
+                                    </button>
                                 </form>
                             </div>
                         </div>
