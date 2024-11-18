@@ -29,6 +29,8 @@ def index():
         api_url = f"{BASE_API_URL}/api/user/profile/{request.form['mac']}"
         response = requests.get(api_url)
         if response.status_code == 200:
+            print("Did I get here ----------------------------")
+
             return render_template('connect.html',
                                    business_name=os.getenv('BUSINESS_NAME'),
                                    link_login_only=session['link_login_only'],
@@ -41,8 +43,12 @@ def index():
         response = requests.get(api_url)
         packages = response.json()
 
-        return render_template('index-list.html', business_name=os.getenv('BUSINESS_NAME'), packages=packages["data"],
+        print("Did I get here  **************************")
+        return render_template('index-list.html',
+                               business_name=os.getenv('BUSINESS_NAME'),
+                               packages=packages["data"],
                                session=session)
+    print("Did I get here ++++++++++++++")
     return render_template('index.html', business_name=os.getenv('BUSINESS_NAME'))
 
 
