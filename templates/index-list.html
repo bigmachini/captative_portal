@@ -31,6 +31,10 @@
                             <span class="card-title" style="text-align: center;">{{ package.name }}</span>
                             <p style="text-align: center;">Validity: {{ package.uptime }}</p>
                             <form method="post" action="/subscribe">
+                                <input type="hidden" name="package_id" value="{{ package.id }}">
+                                <input type="hidden" name="mac" value="{{ package.id }}">
+                                <input type="hidden" name="ip" value="{{ package.id }}">
+
                                 <div class="input-field">
                                     <input id="phone" type="tel" name="phone" class="validate" required>
                                     <label for="phone" style="text-align: center; display: block;">Enter your phone

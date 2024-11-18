@@ -21,23 +21,25 @@ def index():
         session['link_login_only'] = request.form['link-login-only']
         session['error'] = request.form['error']
 
-        session['user_type'] = 'new'
+        # session['user_type'] = 'new'
+        #
+        # api_url = f"{BASE_API_URL}/user/packages/{PARTNER_ID}"
+        # response = requests.get(api_url)
+        # user_data = response.json()
+        #
+        # if user_data:
+        #     session['user_type'] = 'repeat'
+        #
+        # return redirect(url_for('connect'))
 
-        api_url = f"{BASE_API_URL}/user/packages/{PARTNER_ID}"
-        response = requests.get(api_url)
-        user_data = response.json()
-
-        if user_data:
-            session['user_type'] = 'repeat'
-
-        return redirect(url_for('connect'))
-
-    else:
         api_url = f"{BASE_API_URL}/user/packages/{PARTNER_ID}"
         response = requests.get(api_url)
         packages = response.json()
 
-        return render_template('index-list.html', business_name=os.getenv('BUSINESS_NAME'), packages=packages["data"])
+        return render_template('index-list.html', business_name=os.getenv('BUSINESS_NAME'), packages=packages["data"],
+                               session=session)
+    return render_template('index.html', business_name=os.getenv('BUSINESS_NAME'))
+
 
 
 @app.route('/connect', methods=['POST'])
