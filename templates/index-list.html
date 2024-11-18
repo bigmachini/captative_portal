@@ -24,29 +24,28 @@
                 <div id="package_list" class="content has-text-centered has-text-weight-bold"
                      style="font-size: 30px; text-align: center;">Available Packages
                 </div>
-                {% for package in packages %}
-                <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title" style="text-align: center;">{{ package.name }}</span>
-                            <p style="text-align: center;">Validity: {{ package.uptime }}</p>
-                            <form method="post" action="/subscribe">
-                                <input type="hidden" name="package_id" value="{{ package.id }}">
-                                <input type="hidden" name="mac" value="{{ package.id }}">
-                                <input type="hidden" name="ip" value="{{ package.id }}">
-
-                                <div class="input-field">
-                                    <input id="phone" type="tel" name="phone" class="validate" required>
-                                    <label for="phone" style="text-align: center; display: block;">Enter your phone
-                                        number</label></div>
-                                <button class="btn waves-effect waves-light" type="submit" style="width: 100%;">
-                                    Subscribe
-                                </button>
-                            </form>
+                <div class="row">
+                    {% for package in packages %}
+                    <div class="col s12 m4">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title" style="text-align: center;">{{ package.name }}</span>
+                                <p style="text-align: center;">Validity: {{ package.uptime }}</p>
+                                <form method="post" action="/subscribe">
+                                    <input type="hidden" name="package_id" value="{{ package.id }}">
+                                    <input type="hidden" name="mac" value="{{ package.id }}">
+                                    <input type="hidden" name="ip" value="{{ package.id }}">
+                                    <div class="input-field">
+                                        <input id="phone" type="tel" name="phone" class="validate" required>
+                                        <label for="phone" style="text-align: center; display: block;">Enter your phone number</label>
+                                    </div>
+                                    <button class="btn waves-effect waves-light" type="submit" style="width: 100%;">Subscribe</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </section>
     </div>
