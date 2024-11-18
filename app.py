@@ -22,10 +22,14 @@ def index():
         session['error'] = request.form['error']
 
         if session['error']:
+            api_url = f"{BASE_API_URL}/user/profile/clear/{session['mac']}"
+            response = requests.get(api_url)
+            if response.status_code == 200:
+                print("+++++++++++++ Profile Cleared Successful +++++++++++++++++")
+
             api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
             response = requests.get(api_url)
             packages = response.json()
-
             print("Did I get here  **************************")
             return render_template('index-list.html',
                                    business_name=os.getenv('BUSINESS_NAME'),
