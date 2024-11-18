@@ -23,14 +23,15 @@ def index():
 
         # session['user_type'] = 'new'
         #
-        # api_url = f"{BASE_API_URL}/user/packages/{PARTNER_ID}"
-        # response = requests.get(api_url)
-        # user_data = response.json()
-        #
-        # if user_data:
-        #     session['user_type'] = 'repeat'
-        #
-        # return redirect(url_for('connect'))
+        api_url = f"{BASE_API_URL}/api/user/profile/{request.form['mac']}"
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            return render_template('connect.html',
+                                   business_name=os.getenv('BUSINESS_NAME'),
+                                   link_login_only=session['link_login_only'],
+                                   linkorig=session['link_login'],
+                                   uname=session['mac'],
+                                   passw=session['mac'])
 
         api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
         response = requests.get(api_url)
