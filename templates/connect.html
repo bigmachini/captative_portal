@@ -21,19 +21,24 @@
 
     <div class="main">
         <section class="section">
-            < class="container">
             {% if error %}
             <div class="col s12">
                 <div class="card-panel red lighten-2">
                     <span class="white-text">{{ error }}</span>
                 </div>
+
+            </div>
+            <div class="card-panel red lighten-2">
+                <span class="white-text">{{ uname }}</span>
+                <span class="white-text">{{ passw }}</span>
             </div>
             {% endif %}
-            <div id="margin_zero" class="content has-text-centered is-size-6">Please wait, you are being</div>
-            <div id="margin_zero" class="content has-text-centered is-size-6">authorized on the network</div>
+            <div class="container">
+                <div id="margin_zero" class="content has-text-centered is-size-6">Please wait, you are being</div>
+                <div id="margin_zero" class="content has-text-centered is-size-6">authorized on the network</div>
+            </div>
+        </section>
     </div>
-    </section>
-</div>
 </div>
 <form id="form1" name="form1" method="post" action="{{ link_login_only }}">
     <input name="dst" type="hidden" value="{{ linkorig }}"/>
