@@ -46,6 +46,8 @@ def subscribe():
     phone = request.form['phone']
     package_id = request.form['package_id']
     mac_address = session.get('mac')
+    linkorig = session.get('link_login')
+    link_login_only = session.get('link_login_only')
 
     api_url = f"{BASE_API_URL}/api/user/signup"
     data = {
@@ -58,34 +60,14 @@ def subscribe():
     response = requests.post(api_url, json=data, headers=headers)
 
     if response.status_code == 200:
-        return redirect(url_for('success'))
+        return render_template('connect.html',
+                               business_name=os.getenv('BUSINESS_NAME'),
+                               link_login_only=link_login_only,
+                               linkorig=linkorig,
+                               uname=mac_address,
+                               passw=mac_address)
     else:
         return redirect(url_for('failure'))
-
-
-@app.route('/connect', methods=['POST'])
-def connect():
-    mac = session.get('mac')
-    ip = session.get('ip')
-    link_login = session.get('link_login')
-    link_login_only = session.get('link_login_only')
-    linkorig = request.referrer
-
-    uname = request.form['uname']
-    passw = request.form['pass']
-
-    if session.get('user_type') == 'new':
-        api_url = f"{BASE_API_URL}/api/user/signup"
-        data = {
-            'username': uname,
-            'mac': mac,
-            'ip': ip,
-        }
-        headers = {'Content-Type': 'application/json'}
-        response = requests.post(api_url, json=data, headers=headers)
-
-    return render_template('connect.html', business_name=os.getenv('BUSINESS_NAME'), link_login_only=link_login_only,
-                           linkorig=linkorig, uname=uname, passw=passw)
 
 
 if __name__ == '__main__':
