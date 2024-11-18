@@ -21,8 +21,11 @@ def index():
         session['link_login_only'] = request.form['link-login-only']
         session['error'] = request.form['error']
 
-        # session['user_type'] = 'new'
-        #
+        if session['error']:
+            return render_template('index.html',
+                                   business_name=os.getenv('BUSINESS_NAME'),
+                                   form=request.form)
+
         api_url = f"{BASE_API_URL}/api/user/profile/{request.form['mac']}"
         response = requests.get(api_url)
         if response.status_code == 200:
