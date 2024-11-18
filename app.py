@@ -67,7 +67,7 @@ def subscribe():
                                link_login_only=link_login_only,
                                linkorig=linkorig,
                                uname=mac_address,
-                               passw=mac_address)
+                               passw="")
     else:
         return redirect(url_for('failure'))
 
