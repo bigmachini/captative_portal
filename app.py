@@ -22,9 +22,13 @@ def index():
         session['error'] = request.form['error']
 
         if session['error']:
-            return render_template('index.html',
+            return render_template('connect.html',
                                    business_name=os.getenv('BUSINESS_NAME'),
-                                   form=request.form)
+                                   link_login_only=session['link_login_only'],
+                                   linkorig=session['link_login'],
+                                   uname=session['mac'],
+                                   passw=session['mac'],
+                                   error=session['error'])
 
         api_url = f"{BASE_API_URL}/api/user/profile/{request.form['mac']}"
         response = requests.get(api_url)
