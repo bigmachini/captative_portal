@@ -29,7 +29,9 @@ def index():
         api_url = f"{BASE_API_URL}/api/user/profile/{request.form['mac']}"
         response = requests.get(api_url)
         if response.status_code == 200:
-            print("Did I get here ----------------------------")
+            print("Did I get here ---------------------------- ")
+            print("Error: ", response.json())
+            print("session['error']: ", session['error'])
 
             return render_template('connect.html',
                                    business_name=os.getenv('BUSINESS_NAME'),
