@@ -31,7 +31,8 @@ def index():
                                    link_login_only=session['link_login_only'],
                                    linkorig=session['link_login'],
                                    uname=session['mac'],
-                                   passw=session['mac'])
+                                   passw=session['mac'],
+                                   error=session['error'])
 
         api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
         response = requests.get(api_url)
