@@ -51,8 +51,18 @@ def index():
                                error=session['error'])
 
     print("Did I get here ++++++++++++++")
-    return render_template('index.html', business_name=os.getenv('BUSINESS_NAME'))
+    username = request.args.get('username', '')
+    redirect_url = url_for('redirect_to_status')
+    return redirect(redirect_url)
 
+
+
+@app.route('/redirect_to_status', methods=['GET'])
+def redirect_to_status():
+    # Replace with your MikroTik Hotspot IP or domain
+    hotspot_ip = "192.168.88.1"
+    status_url = f"http://{hotspot_ip}/status"
+    return redirect(status_url)
 
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
