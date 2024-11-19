@@ -75,7 +75,7 @@ def subscribe():
     linkorig = session.get('link_login')
     link_login_only = session.get('link_login_only')
 
-    api_url = f"{BASE_API_URL}/api/user/signup"
+    api_url = f"{BASE_API_URL}/api/user/subscribe"
     data = {
         'phone_number': phone,
         'package_id': package_id,
