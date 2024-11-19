@@ -22,6 +22,18 @@ def index():
         session['link_login'] = request.form['link-login']
         session['link_login_only'] = request.form['link-login-only']
 
+        api_url = f"{BASE_API_URL}/api/user/{session['mac']}"
+        response = requests.get(api_url)
+        if response.status_code != 200:
+            api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
+            response = requests.get(api_url)
+            packages = response.json()
+            print("Did I get here  **************************")
+            return render_template('index-list.html',
+                                   business_name=BUSINESS_NAME,
+                                   packages=packages["data"],
+                                   session=session)
+
         session['error'] = request.form['error']
 
         if session['error']:
@@ -52,23 +64,7 @@ def index():
                                error=session['error'])
 
     print("Did I get here ++++++++++++++")
-    username = request.args.get('username', '')
-    redirect_url = url_for('redirect_to_status')
-    return redirect(redirect_url)
-
-
-@app.route('/redirect_to_status', methods=['GET'])
-def redirect_to_status():
-    # Replace with your MikroTik Hotspot IP or domain
-    hotspot_ip = "192.168.88.1"
-    status_url = f"http://{hotspot_ip}/status"
-
-    # Check if the request is from the specified domain
-    print("request.host: " ,request.host)
-    if request.host.startswith("192.168.88"):
-        return redirect(status_url)
-    else:
-        return render_template('marketting.html')
+    return render_template('marketting.html')
 
 
 @app.route('/subscribe', methods=['POST'])
