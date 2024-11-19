@@ -64,6 +64,7 @@ def redirect_to_status():
     status_url = f"http://{hotspot_ip}/status"
 
     # Check if the request is from the specified domain
+    print("request.host: " ,request.host)
     if request.host.startswith("192.168.88"):
         return redirect(status_url)
     else:
