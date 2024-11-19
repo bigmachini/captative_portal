@@ -84,6 +84,14 @@ def subscribe():
     linkorig = session.get('link_login')
     link_login_only = session.get('link_login_only')
 
+    print(f" @@@**************************************************************@@")
+    print(f'phone: {phone}')
+    print(f'Link Login Only: {session["link_login_only"]}')
+    print(f'linkorig: {REDIRECT_URL}')
+    print(f'package_id: {package_id}')
+    print(f'Link Login: {session["link_login"]}')
+    print(f" @@@**************************************************************@@")
+
     api_url = f"{BASE_API_URL}/api/user/subscribe"
     data = {
         'phone_number': phone,
@@ -94,6 +102,9 @@ def subscribe():
     headers = {'Content-Type': 'application/json'}
     response = requests.post(api_url, json=data, headers=headers)
 
+    print(f" @@@**************************************************************@@")
+    print(f'response: {response}')
+    print(f" @@@**************************************************************@@")
     if response.status_code == 200:
         return render_template('connect.html',
                                business_name=os.getenv('BUSINESS_NAME'),
