@@ -55,6 +55,15 @@ def index():
                                    packages=packages["data"],
                                    session=session)
 
+        print(f" **************************************************************")
+        print(f'BUSINESS_NAME: {BUSINESS_NAME}')
+        print(f'Link Login Only: {session["link_login_only"]}')
+        print(f'linkorig: {REDIRECT_URL}')
+        print(f'IP: {session["ip"]}')
+        print(f'MAC: {session["mac"]}')
+        print(f'Link Login: {session["link_login"]}')
+        print(f" **************************************************************")
+
         return render_template('connect.html',
                                business_name=BUSINESS_NAME,
                                link_login_only=session['link_login_only'],
