@@ -10,7 +10,8 @@ load_dotenv()
 
 BASE_API_URL = os.getenv('BASE_API_URL')
 PARTNER_ID = os.getenv('PARTNER_ID')
-
+REDIRECT_URL = os.getenv('REDIRECT_URL')
+BUSINESS_NAME = os.getenv('BUSINESS_NAME')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -19,6 +20,7 @@ def index():
         session['ip'] = request.form['ip']
         session['link_login'] = request.form['link-login']
         session['link_login_only'] = request.form['link-login-only']
+
         session['error'] = request.form['error']
 
         if session['error']:
@@ -36,24 +38,17 @@ def index():
             packages = response.json()
             print("Did I get here  **************************")
             return render_template('index-list.html',
-                                   business_name=os.getenv('BUSINESS_NAME'),
+                                   business_name=BUSINESS_NAME,
                                    packages=packages["data"],
                                    session=session)
 
-        api_url = f"{BASE_API_URL}/api/user/profile/{request.form['mac']}"
-        response = requests.get(api_url)
-        if response.status_code == 200:
-            print("Did I get here ---------------------------- ")
-            print("Error: ", response.json())
-            print("session['error']: ", session['error'])
-
-            return render_template('connect.html',
-                                   business_name=os.getenv('BUSINESS_NAME'),
-                                   link_login_only=session['link_login_only'],
-                                   linkorig=session['link_login'],
-                                   uname=session['mac'],
-                                   passw=session['mac'],
-                                   error=session['error'])
+        return render_template('connect.html',
+                               business_name=BUSINESS_NAME,
+                               link_login_only=session['link_login_only'],
+                               linkorig=REDIRECT_URL,
+                               uname=session['mac'],
+                               passw=session['mac'],
+                               error=session['error'])
 
     print("Did I get here ++++++++++++++")
     return render_template('index.html', business_name=os.getenv('BUSINESS_NAME'))
