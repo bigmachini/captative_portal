@@ -13,6 +13,7 @@ PARTNER_ID = os.getenv('PARTNER_ID')
 REDIRECT_URL = os.getenv('REDIRECT_URL')
 BUSINESS_NAME = os.getenv('BUSINESS_NAME')
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -56,13 +57,18 @@ def index():
     return redirect(redirect_url)
 
 
-
 @app.route('/redirect_to_status', methods=['GET'])
 def redirect_to_status():
     # Replace with your MikroTik Hotspot IP or domain
     hotspot_ip = "192.168.88.1"
     status_url = f"http://{hotspot_ip}/status"
-    return redirect(status_url)
+
+    # Check if the request is from the specified domain
+    if request.host.startswith("192.168.88"):
+        return redirect(status_url)
+    else:
+        return render_template('marketting.html')
+
 
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
