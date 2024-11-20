@@ -27,6 +27,8 @@ def index():
             'error': request.form['error'],
         }
 
+        print(f"index:: request.form['error'] --> {request.form['error']}")
+
         api_url = f"{BASE_API_URL}/api/user/{app_data['mac']}"
         data = {'mac': app_data['mac']}
         headers = {'Content-Type': 'application/json'}
