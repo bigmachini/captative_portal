@@ -22,8 +22,8 @@ def index():
         app_data = {
             'mac': request.form['mac'],
             'ip': request.form['ip'],
-            'link-login': request.form['link-login'],
-            'link-login-only': request.form['link-login-only'],
+            'link_login': request.form['link-login'],
+            'link_login_only': request.form['link-login-only'],
             'error': request.form['error'],
         }
 
@@ -51,19 +51,15 @@ def connect():
     app_data = {
         'mac': request.form['mac'],
         'ip': request.form['ip'],
-        'link-login': request.form['link-login'],
-        'link-login-only': request.form['link-login-only'],
+        'link_login': request.form['link-login'],
+        'link_login_only': request.form['link-login-only'],
         'error': request.form['error'],
     }
     print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ app_data:', app_data)
     return render_template('connect.html',
                            business_name=BUSINESS_NAME,
                            linkorig=REDIRECT_URL,
-                           mac=app_data['mac'],
-                           ip=app_data['ip'],
-                           link_login=app_data['link_login'],
-                           link_login_only=app_data['link_login_only'],
-                           error=app_data['error'])
+                           app_data = app_data)
 
 
 @app.route('/subscribe', methods=['POST'])
