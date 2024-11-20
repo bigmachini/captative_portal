@@ -33,11 +33,7 @@ def index():
         response = requests.get(api_url, json=data, headers=headers)
         if response.status_code == 200:
             # Make a POST request to the index route
-            response = requests.post(url_for('connect', _external=True), data=app_data)
-            if response.status_code == 200:
-                return response.text
-            else:
-                return "Failed to redirect to index", response.status_code
+            return redirect(url_for('connect', **app_data))
 
         api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
         response = requests.get(api_url)
@@ -50,15 +46,14 @@ def index():
     return render_template('marketting.html')
 
 
-@app.route('/connect', methods=['POST'])
+@app.route('/connect', methods=['GET'])
 def connect():
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^;f')
     app_data = {
-        'mac': request.form['mac'],
-        'ip': request.form['ip'],
-        'link_login': request.form['link-login'],
-        'link_login_only': request.form['link-login-only'],
-        'error': request.form['error'],
+        'mac': request.args.get('mac'),
+        'ip': request.args.get('ip'),
+        'link_login': request.args.get('link-login'),
+        'link_login_only': request.args.get('link-login-only'),
+        'error': request.args.get('error'),
     }
     return render_template('connect.html',
                            business_name=BUSINESS_NAME,
@@ -90,13 +85,7 @@ def subscribe():
     print(f"subscribe response: {response}")
     if response.status_code == 200:
         # Redirect to the connect route with query parameters
-        response = requests.post(url_for('connect', _external=True), data=app_data)
-        print(f"connect response: {response}")
-        if response.status_code == 200:
-            return response.text
-        else:
-            return "Failed to redirect to index", response.status_code
-
+        return redirect(url_for('connect', **app_data))
     else:
         return redirect(url_for('failure'))
 
