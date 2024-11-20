@@ -25,6 +25,7 @@ def index():
             'link_login': request.form['link-login'],
             'link_login_only': request.form['link-login-only'],
             'error': request.form['error'],
+            "linkorig": REDIRECT_URL
         }
 
         print(f"index:: request.form['error'] --> {request.form['error']}")
@@ -57,12 +58,13 @@ def connect():
         'link_login': request.form['link_login'],
         'link_login_only': request.form['link_login_only'],
         'error': request.form['error'],
+        "linkorig": REDIRECT_URL
     }
     print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ app_data:', app_data)
     return render_template('connect.html',
                            business_name=BUSINESS_NAME,
                            linkorig=REDIRECT_URL,
-                           app_data = app_data)
+                           app_data=app_data)
 
 
 @app.route('/subscribe', methods=['POST'])
@@ -75,6 +77,8 @@ def subscribe():
         'link_login': request.form['link_login'],
         'link_login_only': request.form['link_login_only'],
         'error': request.form['error'],
+        "linkorig": REDIRECT_URL
+
     }
     print(f"subscribe app_data: {app_data}")
 

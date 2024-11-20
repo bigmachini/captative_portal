@@ -35,8 +35,8 @@
         </section>
     </div>
 </div>
-<form id="form1" name="form1" method="post" action="{{ link_login_only }}">
-    <input name="dst" type="hidden" value="{{ linkorig }}"/>
+<form id="form1" name="form1" method="post" action="{{  app_data.link_login_only }}">
+    <input name="dst" type="hidden" value="{{  app_data.linkorig }}"/>
     <input name="popup" type="hidden" value="false"/>
     <input name="username" type="hidden" value="{{ uname }}"/>
     <input name="ip" type="hidden" value="{{ app_data.ip }}"/> <!-- Add this line -->
