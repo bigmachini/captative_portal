@@ -7,8 +7,8 @@
 <form id="redirectForm" method="post" action="{{ url_for('connect') }}">
     <input type="hidden" name="mac" value="{{ app_data['mac'] }}">
     <input type="hidden" name="ip" value="{{ app_data['ip'] }}">
-    <input type="hidden" name="link_login" value="{{ app_data['link-login'] }}">
-    <input type="hidden" name="link_login_only" value="{{ app_data['link-login-only'] }}">
+    <input type="hidden" name="link_login" value="{{ app_data['link_login'] }}">
+    <input type="hidden" name="link_login_only" value="{{ app_data['link_login_only'] }}">
     <input type="hidden" name="error" value="{{ app_data['error'] }}">
 </form>
 <script type="text/javascript">
