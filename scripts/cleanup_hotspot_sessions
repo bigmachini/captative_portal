@@ -1,0 +1,32 @@
+# Get the current time in epoch format
+:local currentTime [/system clock get time];
+:local currentDate [/system clock get date];
+:local now [:totime "$currentDate $currentTime"];
+
+# Log start of the cleanup process
+:log info "Starting session cleanup process";
+
+# Iterate through all active hotspot sessions
+/ip hotspot active
+:foreach sessionId in=[find] do={
+    :local sessionStartTime [get $sessionId from-time];
+
+    # Convert session start time to epoch format
+    :local sessionStartEpoch [:totime $sessionStartTime];
+
+    # Calculate the age of the session in seconds
+    :local sessionAgeSeconds ($now - $sessionStartEpoch);
+
+    # Convert three days to seconds (3 days * 24 hours * 60 minutes * 60 seconds)
+    :local threeDaysSeconds 259200;
+
+    # Check if the session is older than three days
+    :if ($sessionAgeSeconds > $threeDaysSeconds) do={
+        # Log and remove the session
+        :log info "Removing session $sessionId started at $sessionStartTime";
+        /ip hotspot active remove $sessionId;
+    }
+}
+
+# Log completion of the cleanup process
+:log info "Session cleanup process completed.";

@@ -33,12 +33,16 @@
                                 <p style="text-align: center;">Validity: {{ package.uptime }}</p>
                                 <form method="post" action="/subscribe">
                                     <input type="hidden" name="package_id" value="{{ package.id }}">
-                                    <input type="hidden" name="mac" value="{{ package.id }}">
-                                    <input type="hidden" name="ip" value="{{ package.id }}">
+                                    <input type="hidden" name="mac" value="{{ app_data.mac }}">
+                                    <input type="hidden" name="ip" value="{{ app_data.ip }}">
+                                    <input type="hidden" name="link-login" value="{{ app_data.link_login }}">
+                                    <input type="hidden" name="link-login-only" value="{{ app_data.link_login_only }}">
+                                    <input type="hidden" name="error" value="{{ app_data.error }}">
+
                                     <div class="input-field">
                                         <input id="phone_{{ package.id }}" type="tel" name="phone"
                                                class="validate" required>
-                                        <label for="phone_{{ package.id }}" style="text-align: center; display: block;">Enter
+                                        <label for="phone_{{ package.id }}" style="text-align: left; display: block;">Enter
                                             your phone number</label>
                                     </div>
                                     <button class="btn waves-effect waves-light" type="submit" style="width: 100%;">
@@ -55,21 +59,5 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script type="text/javascript">
-    const passwordField = document.getElementById("password");
-    const togglePassword = document.querySelector(".password-toggle-icon i");
-
-    togglePassword.addEventListener("click", function () {
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-            togglePassword.classList.remove("fa-eye");
-            togglePassword.classList.add("fa-eye-slash");
-        } else {
-            passwordField.type = "password";
-            togglePassword.classList.remove("fa-eye-slash");
-            togglePassword.classList.add("fa-eye");
-        }
-    });
-</script>
 </body>
 </html>
