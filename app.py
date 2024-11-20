@@ -52,6 +52,8 @@ def index():
 
 @app.route('/connect', methods=['POST'])
 def connect():
+    print(f"subscribe request.form: {request.form}")
+
     app_data = {
         'mac': request.form['mac'],
         'ip': request.form['ip'],
