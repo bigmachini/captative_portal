@@ -16,23 +16,3 @@
 </script>
 </body>
 </html>
-
-
-<form id="form1" name="form1" method="post" action="{{ app_data.link_login_only }}">
-    <input name="dst" type="hidden" value="{{ app_data.linkorig }}"/>
-    <input name="popup" type="hidden" value="false"/>
-    <input name="username" type="hidden" value="{{ uname }}"/>
-    <input name="ip" type="hidden" value="{{ app_data.ip }}"/>
-    <input name="phone" type="hidden" value="{{ app_data.phone }}"/>
-    <input name="mac" type="hidden" value="{{ app_data.mac }}"/>
-    <input name="link_login_only" type="hidden" value="{{ app_data.link_login_only }}"/>
-    <input name="link_login" type="hidden" value="{{ app_data.link_login }}"/>
-    <input name="error" type="hidden" value="{{ app_data.error }}"/>
-</form>
-<script type="text/javascript">
-    window.onload = function () {
-        window.setTimeout(function () {
-            document.form1.submit();
-        }, 2000);
-    };
-</script>
