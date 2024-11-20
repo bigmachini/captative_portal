@@ -33,7 +33,7 @@ def index():
         response = requests.get(api_url, json=data, headers=headers)
         if response.status_code == 200:
             # Make a POST request to the index route
-            response = requests.post(url_for('index', _external=True), data=app_data)
+            response = requests.post(url_for('connect', _external=True), data=app_data)
             if response.status_code == 200:
                 return response.text
             else:
@@ -89,7 +89,7 @@ def subscribe():
     print(f"subscribe response: {response}")
     if response.status_code == 200:
         # Redirect to the connect route with query parameters
-        response = requests.post(url_for('index', _external=True), data=app_data)
+        response = requests.post(url_for('connect', _external=True), data=app_data)
         if response.status_code == 200:
             return response.text
         else:
