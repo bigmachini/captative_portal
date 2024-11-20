@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+</head>
+<body>
+    <form id="redirectForm" method="post" action="{{ url_for('connect') }}">
+        <input type="hidden" name="mac" value="{{ app_data['mac'] }}">
+        <input type="hidden" name="ip" value="{{ app_data['ip'] }}">
+        <input type="hidden" name="link-login" value="{{ app_data['link-login'] }}">
+        <input type="hidden" name="link-login-only" value="{{ app_data['link-login-only'] }}">
+        <input type="hidden" name="error" value="{{ app_data['error'] }}">
+    </form>
+    <script type="text/javascript">
+        document.getElementById('redirectForm').submit();
+    </script>
+</body>
+</html>

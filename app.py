@@ -33,7 +33,7 @@ def index():
         response = requests.get(api_url, json=data, headers=headers)
         if response.status_code == 200:
             # Make a POST request to the index route
-            return render_template('connect.html', app_data=app_data)
+            return render_template('redirect_form.html', app_data=app_data)
 
         api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
         response = requests.get(api_url)
@@ -84,7 +84,7 @@ def subscribe():
     print(f"subscribe response: {response}")
     if response.status_code == 200:
         # Redirect to the connect route with query parameters
-        return render_template('connect.html', app_data=app_data)
+        return render_template('redirect_form.html', app_data=app_data)
     else:
         return redirect(url_for('failure'))
 
