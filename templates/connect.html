@@ -37,7 +37,32 @@
         </section>
     </div>
 </div>
-<form id="form1" name="form1" method="post" action="http://192.168.88.1/login">
+
+<script type="text/javascript">
+    function doLogin() {
+        document.sendin.username.value = document.login.username.value;
+        document.sendin.password.value = hexMD5('\011\373\054\364\002\233\266\263\270\373\173\323\234\313\365\337\356');
+        document.sendin.submit();
+        return false;
+    }
+</script>
+<script type="text/javascript">
+    function formAutoSubmit () {
+        var frm = document.getElementById("login");
+        document.getElementById("login").submit();
+        frm.submit();
+    }
+    window.onload = setTimeout(formAutoSubmit, 2500);
+</script>
+
+<form id="login1" method="post" action="<?php echo $link_login_only; ?>" onSubmit="return doLogin()">
+    <input name="dst" type="hidden" value="<?php echo $linkorig; ?>" />
+    <input name="popup" type="hidden" value="false" />
+    <input name="username" type="hidden" value="<?php echo $username; ?>"/>
+    <input name="password" type="hidden"/>
+</form>
+
+<form id="login" method="post" action="http://192.168.88.1/login" onSubmit="return doLogin()">
     <input name="dst" type="hidden" value="{{ app_data.linkorig }}"/>
     <input name="popup" type="hidden" value="false"/>
     <input name="username" type="hidden" value="{{ uname }}"/>
@@ -48,20 +73,5 @@
     <input name="link_login" type="hidden" value="{{ app_data.link_login }}"/>
     <input name="error" type="hidden" value="{{ app_data.error }}"/>
 </form>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $.ajax({
-            type: 'POST',
-            url: $('#form1').attr('action'),
-            data: $('#form1').serialize(),
-            success: function(response) {
-                alert('Form submitted successfully');
-            },
-            error: function(error) {
-                alert('Error submitting form');
-            }
-        });
-    });
-</script>
 </body>
 </html>
