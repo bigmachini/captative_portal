@@ -22,8 +22,8 @@ def index():
         app_data = {
             'mac': request.form['mac'],
             'ip': request.form['ip'],
-            'link_login': request.form['link-login'],
-            'link_login_only': request.form['link-login-only'],
+            'link-login': request.form['link-login'],
+            'link-login-only': request.form['link-login-only'],
             'error': request.form['error'],
         }
 
@@ -32,7 +32,12 @@ def index():
         headers = {'Content-Type': 'application/json'}
         response = requests.get(api_url, json=data, headers=headers)
         if response.status_code == 200:
-            return redirect(url_for('connect', **app_data))
+            # Make a POST request to the index route
+            response = requests.post(url_for('index', _external=True), data=app_data)
+            if response.status_code == 200:
+                return response.text
+            else:
+                return "Failed to redirect to index", response.status_code
 
         api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
         response = requests.get(api_url)
@@ -45,14 +50,14 @@ def index():
     return render_template('marketting.html')
 
 
-@app.route('/connect')
+@app.route('/connect', methods=['POST'])
 def connect():
     app_data = {
-        'mac': request.args.get('mac'),
-        'ip': request.args.get('ip'),
-        'link_login': request.args.get('link-login'),
-        'link_login_only': request.args.get('link-login-only'),
-        'error': request.args.get('error')
+        'mac': request.form['mac'],
+        'ip': request.form['ip'],
+        'link_login': request.form['link-login'],
+        'link_login_only': request.form['link-login-only'],
+        'error': request.form['error'],
     }
     return render_template('connect.html',
                            business_name=BUSINESS_NAME,
@@ -64,15 +69,13 @@ def connect():
 def subscribe():
     phone = request.form['phone']
     package_id = request.form['package_id']
-
     app_data = {
         'mac': request.form['mac'],
         'ip': request.form['ip'],
-        'link_login': request.form['link-login'],
-        'link_login_only': request.form['link-login-only'],
-        'error': request.form['error']
+        'link-login': request.form['link-login'],
+        'link-login-only': request.form['link-login-only'],
+        'error': request.form['error'],
     }
-    print(f"app_data Data in index: {app_data}")
 
     api_url = f"{BASE_API_URL}/api/user/subscribe"
     data = {
@@ -86,7 +89,11 @@ def subscribe():
     print(f"subscribe response: {response}")
     if response.status_code == 200:
         # Redirect to the connect route with query parameters
-        return redirect(url_for('connect', **app_data))
+        response = requests.post(url_for('index', _external=True), data=app_data)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return "Failed to redirect to index", response.status_code
 
     else:
         return redirect(url_for('failure'))
