@@ -45,6 +45,7 @@ def index():
 
     return render_template('marketting.html')
 
+
 @app.route('/connect', methods=['POST'])
 def connect():
     app_data = {
@@ -54,10 +55,15 @@ def connect():
         'link_login_only': request.form['link-login-only'],
         'error': request.form['error'],
     }
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ app_data:', app_data)
     return render_template('connect.html',
                            business_name=BUSINESS_NAME,
                            linkorig=REDIRECT_URL,
-                           app_data=app_data)
+                           mac=request.form['mac'],
+                           ip=request.form['ip'],
+                           link_login=request.form['link-login'],
+                           link_login_only=request.form['link-login-only'],
+                           error=request.form['error'])
 
 
 @app.route('/subscribe', methods=['POST'])
