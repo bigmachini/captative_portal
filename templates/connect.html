@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" href="../static/images/favicomatic/favicon-32x32.png" height="32" width="32"/>
     <link rel="icon" type="image/png" href="../static/images/favicomatic/favicon-16x16.png" height="16" width="16"/>
     <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="page">
@@ -31,31 +32,36 @@
             <div class="container">
                 <div id="margin_zero" class="content has-text-centered is-size-6">Please wait, you are being</div>
                 <div id="margin_zero" class="content has-text-centered is-size-6">authorized on the network</div>
-                                <div id="margin_zero" class="content has-text-centered is-size-6">  {{  app_data.link_login_only }}</div>
-
-
+                <div id="margin_zero" class="content has-text-centered is-size-6">{{ app_data.link_login_only }}</div>
             </div>
         </section>
     </div>
 </div>
 <form id="form1" name="form1" method="post" action="http://192.168.88.1/login">
-    <input name="dst" type="hidden" value="{{  app_data.linkorig }}"/>
+    <input name="dst" type="hidden" value="{{ app_data.linkorig }}"/>
     <input name="popup" type="hidden" value="false"/>
     <input name="username" type="hidden" value="{{ uname }}"/>
-    <input name="ip" type="hidden" value="{{ app_data.ip }}"/> <!-- Add this line -->
-    <input name="phone" type="hidden" value="{{ app_data.phone }}"/> <!-- Add this line -->
-    <input name="mac" type="hidden" value="{{ app_data.mac }}"/> <!-- Add this line -->
+    <input name="ip" type="hidden" value="{{ app_data.ip }}"/>
+    <input name="phone" type="hidden" value="{{ app_data.phone }}"/>
+    <input name="mac" type="hidden" value="{{ app_data.mac }}"/>
     <input name="link_login_only" type="hidden" value="{{ app_data.link_login_only }}"/>
-    <input name="link_login" type="hidden" value="{{ app_data.link_login }}"/> <!-- Add this line -->
-    <input name="error" type="hidden" value="{{ app_data.error }}"/> <!-- Add this line -->
-
-    <!-- Add this line -->
-
-
+    <input name="link_login" type="hidden" value="{{ app_data.link_login }}"/>
+    <input name="error" type="hidden" value="{{ app_data.error }}"/>
 </form>
 <script type="text/javascript">
-        document.getElementById('form1').submit();
-
+    $(document).ready(function() {
+        $.ajax({
+            type: 'POST',
+            url: $('#form1').attr('action'),
+            data: $('#form1').serialize(),
+            success: function(response) {
+                console.log('Form submitted successfully');
+            },
+            error: function(error) {
+                console.log('Error submitting form');
+            }
+        });
+    });
 </script>
 </body>
 </html>
