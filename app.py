@@ -80,7 +80,7 @@ def subscribe():
         "linkorig": REDIRECT_URL
 
     }
-    print(f"subscribe app_data: {app_data}")
+    print(f"subscribe request.form: {request.form}")
 
     api_url = f"{BASE_API_URL}/api/user/subscribe"
     data = {
