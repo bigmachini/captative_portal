@@ -71,10 +71,11 @@ def subscribe():
     app_data = {
         'mac': request.form['mac'],
         'ip': request.form['ip'],
-        'link-login': request.form['link-login'],
-        'link-login-only': request.form['link-login-only'],
+        'link_login': request.form['link-login'],
+        'link_login_only': request.form['link-login-only'],
         'error': request.form['error'],
     }
+    print(f"subscribe app_data: {app_data}")
 
     api_url = f"{BASE_API_URL}/api/user/subscribe"
     data = {
