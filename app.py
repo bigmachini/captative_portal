@@ -52,6 +52,7 @@ def index():
 
 @app.route('/connect', methods=['POST'])
 def connect():
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^;f')
     app_data = {
         'mac': request.form['mac'],
         'ip': request.form['ip'],
@@ -90,6 +91,7 @@ def subscribe():
     if response.status_code == 200:
         # Redirect to the connect route with query parameters
         response = requests.post(url_for('connect', _external=True), data=app_data)
+        print(f"connect response: {response}")
         if response.status_code == 200:
             return response.text
         else:
