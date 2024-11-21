@@ -28,16 +28,13 @@ def index():
             "linkorig": REDIRECT_URL
         }
 
-        print(f"index:: request.form['error'] --> {request.form['error']}")
         print(f"index:: app_data --> {app_data}")
 
         api_url = f"{BASE_API_URL}/api/user/{app_data['mac']}"
         data = {'mac': app_data['mac']}
         headers = {'Content-Type': 'application/json'}
         response = requests.get(api_url, json=data, headers=headers)
-        if response.status_code == 200:
-            # Make a POST request to the index route
-            return render_template('redirect_form.html', app_data=app_data)
+        print(f"index:: clean up user data response --> {response}")
 
         api_url = f"{BASE_API_URL}/api/user/packages/{PARTNER_ID}"
         response = requests.get(api_url)
